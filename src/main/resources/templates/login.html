@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <main style="flex-direction: column;align-items: center; width: 40%;">
+        <div th:if="${param.failed}" class="alert">
+            <h1 style="color:black">Invalid Username or Password</h1>
+        </div>
+        <form method="post" th:action="@{/login}">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Username" required autofocus><br>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required><br>
+            <input type="submit" value="Login">
+        </form>
+        <p>Do not have an account yet? <span><a href="/register" style="background-color: white; color: blue; text-decoration: underline;">Register</a></span></p>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body >
+    <div style="text-align: center;">
+        <h1 style="color: black; text-align: center;" th:text="'Hi '+${firstName}"></h1>
+    </div>
+    <main>
+        <div style="display: flex; flex-direction: column;">
+            <form th:action="@{/{userName}(userName=${userName})}" method="post">
+                <input type="hidden" name="lastCheckedButton" th:value="${lastCheckedButton}">
+                <label for="allTasks">All Tasks</label>
+                <input type="radio" name="filteredTasks" id="allTasks" value="allTasks" checked><br>
+                <label for="todaysTasks">Tasks for today only</label>
+                <input type="radio" name="filteredTasks" id="todaysTasks" value="todaysTasks"><br>
+                <input type="submit" value="Filter">
+            </form>
+            <!-- <a th:href="@{/logout}" style="text-align: center;"><h2 style="color: white;">Logout</h2></a> -->
+        </div>
+        <div>
+            <div>
+                <h2>Tasks to complete</h2>
+                <table>
+                    <tr>
+                        <th>Task Description</th>
+                        <th>Due Date</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                    <form th:action="@{/{userName}/edit(userName=${userName})}" method="post" th:object="${taskToEdit}">
+                        <tr th:each="task:${tasks}">
+                            <td>
+                                <span class="taskdesc" th:unless="${#vars['editFlagFor' + task.taskId]}"
+                                    th:text="${task.taskDescription}"></span>
+                                <input type="hidden" th:field="*{taskId}" th:if="${#vars['editFlagFor' + task.taskId]}">
+                                <input type="text" th:field="*{taskDescription}" required autofocus
+                                    th:if="${#vars['editFlagFor' + task.taskId]}">
+                            </td>
+                            <td>
+                                <span class="dates" th:unless="${#vars['editFlagFor' + task.taskId]}"
+                                    th:text="${task.dueDate}"></span>
+                                <input type="date" name="dueDate" id="dueDate" th:min="${todaysDate}"
+                                    th:value="${taskToEdit.dueDate}" required
+                                    th:if="${#vars['editFlagFor' + task.taskId]}">
+                            </td>
+                            <td>
+                                <a class="editLinks" th:href="@{/{userName}/edit/{taskId}(userName=${userName},taskId=${task.taskId})}"
+                                    th:unless="${#vars['editFlagFor' + task.taskId]}">Edit</a>
+                                <input type="submit" value="Done" th:if="${#vars['editFlagFor' + task.taskId]}">
+                            </td>
+                            <td>
+                                <a th:href="@{/{userName}/delete/{taskId}(userName=${userName},taskId=${task.taskId})}">Delete</a>
+                            </td>
+                        </tr>
+                    </form>
+                </table>
+                <a th:href="@{/{userName}/addTask(userName=${userName})}">
+                    <h1>Add a Task</h1>
+                </a>
+            </div>
+        </div>
+        <div>
+            <h1>Upcoming Tasks</h1>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </main>
+    <script th:src="@{/scripts/script.js}"></script>
+</body>
+
+</html>

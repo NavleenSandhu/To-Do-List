@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <main style="flex-direction: column;align-items: center; width: 40%;">
+        <h1 style="color: black;">Register</h1>
+        <form method="post" th:action="@{/register}">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" placeholder="First Name" required autofocus><br>
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required><br>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Username" required><br>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" minlength="8" required><br>
+            <input type="submit" value="Register">
+        </form>
+    </main>
+</body>
+
+</html>

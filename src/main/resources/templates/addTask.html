@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <main style="flex-direction: column;align-items: center;">
+        <h1 style="color: black;">Add Task</h1>
+        <form th:action="@{/{userName}/addTask(userName=${userName})}" method="post" th:object="${task}">
+            <input type="hidden" th:field="*{taskId}">
+            <label for="taskDescription">Task Description: </label>
+            <input type="text" th:field="*{taskDescription}" required autofocus><br>
+            <label for="dueDate">Due Date: </label>
+            <input type="date" th:field="*{dueDate}" th:min="${todaysDate}" required><br>
+            <input type="hidden" name="userId" id="userId" th:value="${userId}">
+            <input type="submit" value="Add Task">
+        </form>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+CREATE TABLE Users(
+USER_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+USER_NAME VARCHAR(50) NOT NULL,
+FIRST_NAME VARCHAR(50) NOT NULL,
+LAST_NAME VARCHAR(50) NULL,
+PASSWORD VARCHAR(100) NOT NULL);
+create table SEC_ROLE
+(
+  role_Id   INT NOT NULL Primary Key AUTO_INCREMENT,
+  role_Name VARCHAR(30) NOT NULL UNIQUE
+) ;
+create table USER_ROLE
+(
+  ID      INT NOT NULL Primary Key AUTO_INCREMENT,
+  user_Id INT NOT NULL,
+  role_Id INT NOT NULL
+);
+CREATE TABLE Tasks(
+TASK_ID BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+TASK_DESCRIPTION VARCHAR(500) NOT NULL,
+DUE_DATE DATE NOT NULL,
+USER_ID INT NOT NULL,
+FOREIGN KEY (USER_ID) REFERENCES Users(USER_ID)
+);
+alter table USER_ROLE
+  add constraint USER_ROLE_UK unique (user_Id, role_Id);
+
+alter table USER_ROLE
+  add constraint USER_ROLE_FK1 foreign key (user_Id)
+  references USERS (user_Id);
+ 
+alter table USER_ROLE
+  add constraint USER_ROLE_FK2 foreign key (role_Id)
+  references SEC_ROLE (role_Id);
